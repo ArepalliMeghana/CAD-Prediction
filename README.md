@@ -1,46 +1,83 @@
-# Coronary Artery Disease Prediction
 
-This project predicts the likelihood of Coronary Artery Disease (CAD) using machine learning models trained on patient data. The system utilizes cleaned datasets and a pre-trained model to assess risks and generate insights.
-
-## Features
-- **Dataset Handling**: Cleaned CSV and Excel files for patient records.
-- **Model**: Pre-trained Decision Tree model (`DT-cyber.pkl`).
-- **Implementation**: Python-based analysis using a Jupyter Notebook.
-
-## Project Structure
-```
-CAD-Prediction-main/
-│
-├── Cardiac_cleaned_data.csv                  # Cleaned dataset in CSV format
-├── Cardiac_disease.ipynb                     # Main implementation notebook
-├── DT-cyber.pkl                              # Pre-trained machine learning model
-└── Patients Information Of Cardiac Dataset.xlsx  # Supplementary patient information
-```
-
-## How to Run the Project
-1. Clone this repository:
-   ```bash
-   git clone <repository-link>
-   cd CAD-Prediction-main
-   ```
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Open the Jupyter notebook:
-   ```bash
-   jupyter notebook Cardiac_disease.ipynb
-   ```
-4. Follow the steps in the notebook to execute the code and analyze results.
-
-## Dependencies
-- Python 3.x
-- Jupyter Notebook
-- Required libraries (listed in `requirements.txt`)
-
-## Future Enhancements
-- Extend the system with a symptom checker.
-- Provide comprehensive health reports with lifestyle and dietary recommendations.
-- Implement decision support for medication or surgery based on disease severity.
+# Coronary Artery Disease Prediction from CT Scans
 
 
+## Project Overview
+Automated CAD risk prediction using:
+1. DICOM CT preprocessing
+2. Cardiac ROI extraction
+3. Calcium segmentation
+4. 3D CNN risk modeling
+
+## Installation
+```bash
+git clone https://github.com/yourusername/cad-prediction.git
+cd cad-prediction
+pip install -r requirements.txt
+Usage
+Data Preparation
+
+python
+from data_processing.dicom_to_hu import load_dicom_hu
+hu, dicom = load_dicom_hu("ct.dcm")
+Training
+
+python
+from model.train_3dcnn import train_model
+model = train_model(ct_volumes, labels)
+Prediction
+
+python
+from model.predict import predict_risk
+risk = predict_risk(model, ct_volume, clinical_data)
+File Structure
+/data_processing: DICOM conversion and ROI extraction
+
+/model: 3D CNN training/prediction
+
+/utils: Visualization tools
+
+Requirements
+Python 3.8+
+
+PyTorch 1.10+
+
+MONAI 0.9+
+
+pydicom 2.3+
+
+References
+RSNA Pulmonary Embolism Dataset
+
+MONAI U-Net Architecture
+
+Agatston Scoring Protocol
+
+text
+
+---
+
+### **requirements.txt**
+pydicom>=2.3.0
+numpy>=1.21.0
+torch>=1.10.0
+monai>=0.9.0
+scikit-image>=0.19.0
+matplotlib>=3.5.0
+seaborn>=0.11.2
+
+text
+
+---
+
+### **Key Features**
+1. **End-to-End Pipeline**: DICOM → Risk Prediction
+2. **Modular Design**: Easy to swap components
+3. **Clinical Readiness**: Includes Agatston scoring
+4. **Explainability**: SHAP values and Grad-CAM
+
+To run the complete workflow:
+```bash
+python -m data_processing.dicom_to_hu input.dcm
+python -m model.train_3dcnn
+python -m model.predict sample_ct.npy  give this readme file for direct copy paste to github
